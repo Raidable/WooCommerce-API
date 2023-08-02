@@ -19,13 +19,13 @@ def cls():
     
 
 
-url = "https://www.sateservices.it/"
-username = "ck_f9069ec1e1d92f7a452bc007f82fbc6dbab55867"
-password = "cs_aba467676eca02221901111e35ca28b1423239db"
-baseURL = "https://www.sateservices.it/"
+url = "https://yourwebsite.com/"
+username = "username"
+password = "pass"
+baseURL = "https://www...../"
 
 def getAmountOfProducts(amount):
-    response = requests.get("https://www.sateservices.it/wp-json/wc/v3/products", auth = (username, password), params = {"per_page": amount})
+    response = requests.get("https://yourwebsite.com/wp-json/wc/v3/products", auth = (username, password), params = {"per_page": amount})
     
     if (response.raise_for_status()):
         print("Error, status code: ", response.status_code)
@@ -43,7 +43,7 @@ def getAmountOfProducts(amount):
 
 def checkIfProductExists(skuToCheck):
 
-    product = requests.get("https://www.sateservices.it/wp-json/wc/v3/products", auth = (username, password), params = {"sku": skuToCheck})
+    product = requests.get("https://yourwebsite.com/wp-json/wc/v3/products", auth = (username, password), params = {"sku": skuToCheck})
     product = product.json()
     
     if (len(product) == 1):
@@ -54,7 +54,7 @@ def checkIfProductExists(skuToCheck):
 # Retrieve a product by its SKU
 def getProductBySKU(skuToFind):
     # The SKU is the product's COD
-    product = requests.get("https://www.sateservices.it/wp-json/wc/v3/products", auth = (username, password), params = {"sku": skuToFind})
+    product = requests.get("https://yourwebsite.com/wp-json/wc/v3/products", auth = (username, password), params = {"sku": skuToFind})
     
     product = product.json()
 
@@ -74,7 +74,7 @@ def getProductBySKU(skuToFind):
 def updateProductBySKU(productSKU, dataToEdit):
     # HTTP Request to perform .../wp-json/wc/v3/products/<id>\
     # So we need to fetch the product's ID first
-    product = requests.get("https://www.sateservices.it/wp-json/wc/v3/products", auth = (username, password), params = {"sku": productSKU})
+    product = requests.get("https://yourwebsite.com/wp-json/wc/v3/products", auth = (username, password), params = {"sku": productSKU})
     product = product.json()
 
     if (len(product) == 0):
@@ -87,7 +87,7 @@ def updateProductBySKU(productSKU, dataToEdit):
 
     # If the new SKU is "" then the old sku will be removed
     try:
-        requests.put(f"https://www.sateservices.it/wp-json/wc/v3/products/{productID}", dataToEdit, auth = (username, password)).json()
+        requests.put(f"https://yourwebsite.com/wp-json/wc/v3/products/{productID}", dataToEdit, auth = (username, password)).json()
         
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}') 
